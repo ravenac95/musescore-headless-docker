@@ -25,10 +25,7 @@ jobs:
         run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION}
 
       - name: Login to docker hub
-        uses: actions-hub/docker/login@master
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       
       - name: Prepare the docker container for publishing to dockerhub
         run: docker tag docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION} ravenac95/musescore-headless:${VERSION}
