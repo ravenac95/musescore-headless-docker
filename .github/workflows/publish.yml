@@ -1,4 +1,10 @@
-name: Publish dockerfile
+##
+# Publishes the musescore-headless docker image
+#
+# This workflow aims to be very generic. It can actually be forked and doesn't
+# have anything specific to me
+##
+name: Publish docker image
 
 on:
   push:
@@ -28,8 +34,8 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       
       - name: Prepare the docker container for publishing to dockerhub
-        run: docker tag docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION} ravenac95/musescore-headless:${VERSION}
+        run: docker tag docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION} ${{ secrets.DOCKERHUB_REPO_USER }}/musescore-headless:${VERSION}
 
       - name: Publish the docker container to docker hub
-        run: docker push ravenac95/musescore-headless:${VERSION}
+        run: docker push ${{ secrets.DOCKERHUB_REPO_USER }}/musescore-headless:${VERSION}
       
