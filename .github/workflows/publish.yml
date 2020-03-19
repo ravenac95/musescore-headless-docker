@@ -34,5 +34,5 @@ jobs:
         run: docker tag docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION} ${{ secrets.DOCKERHUB_REPO_NAME }}/musescore-headless:${VERSION}
 
       - name: Publish the docker container to docker hub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME} }}/musescore-headless:${VERSION}
+        run: docker push ${{ secrets.DOCKERHUB_REPO_NAME }}/musescore-headless:${VERSION}
       
