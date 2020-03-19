@@ -31,8 +31,8 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       
       - name: Prepare the docker container for publishing to dockerhub
-        run: docker tag docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION} ${{ secrets.DOCKERHUB_REPO_NAME }}/musescore-headless:${VERSION}
+        run: docker tag docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${VERSION} ravenac95/musescore-headless:${VERSION}
 
       - name: Publish the docker container to docker hub
-        run: docker push ${{ secrets.DOCKERHUB_REPO_NAME }}/musescore-headless:${VERSION}
+        run: docker push ravenac95/musescore-headless:${VERSION}
       
