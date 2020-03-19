@@ -1,0 +1,23 @@
+name: Publish dockerfile
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build the docker container
+        run: docker build -t docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${GITHUB_REF} .
+      
+      - name: Login to github packages
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u $(echo ${GITHUB_REPOSITORY} | awk -F/ '{print $1}') --password-stdin
+      
+      - name: Publish the docker container
+        run: docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/musescore-headless:${GITHUB_REF}
+      
